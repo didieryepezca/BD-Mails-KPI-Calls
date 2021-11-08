@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@using EmailSenderOpplus.Models.Entities;
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <li class="nav-item nav-profile dropdown">
+
+        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+            <div class="nav-profile-img">
+                <img src="~/images/faces/face28.png" alt="image">
+            </div>
+            <div class="nav-profile-text">
+                <p class="mb-1 text-black">@User.Identity.Name</p>
+            </div>
+        </a>
+
+
+        <div class="dropdown-menu navbar-dropdown dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="profileDropdown" data-x-placement="bottom-end">
+            <div class="p-3 text-center bg-primary">
+                <img class="img-avatar img-avatar48 img-avatar-thumb" src="~/images/faces/face28.png" alt="">
+            </div>
+            <div class="p-2">
+
+                <div role="separator" class="dropdown-divider"></div>
+                <h5 class="dropdown-header text-uppercase  pl-2 text-dark mt-2">Acciones</h5>
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="dropdown-item py-1 d-flex align-items-center justify-content-between">
+                        <span>Cerrar Sesion</span>
+                        <i class="mdi mdi-logout ml-1"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </li>
+}
+else
+{
+
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Registrar</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Entrar</a>
+    </li>
+
+}
+
+
+
+@*<ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </li>
+        }
+    </ul>*@

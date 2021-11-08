@@ -1,0 +1,69 @@
+﻿@model IEnumerable<EmailSenderOpplus.Models.Entities.TB_HISTORIAL_CARGAS_CSV>
+
+@{
+    ViewData["Title"] = "HistoriaCargas";
+}
+
+<div class="page-header">
+    <h3 class="page-title"> Historial de Archivos Cargados </h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Datos</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Historial de Archivos Cargados</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Informacion de Archivos Cargados</h4>
+                
+                <table class="table">
+
+                    <thead>
+                        <tr>
+                            <th>Estado de Archivo</th>
+                            <th>Nombre de Archivo</th>
+                            <th>Fecha y Hora de Carga</th>                            
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @if (item.estado == "CARGADO CON EXITO")
+                                {
+                                    <td>
+                                        <label class="badge badge-success">@Html.DisplayFor(modelItem => item.estado)</label>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <label class="badge badge-danger">@Html.DisplayFor(modelItem => item.estado)</label>
+                                    </td>
+                                }
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.archivo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.fecha)
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

@@ -1,0 +1,191 @@
+﻿@model IEnumerable<EmailSenderOpplus.Models.Entities.DESEMBOLSO_CONVENIOS>
+
+@{
+    ViewData["Title"] = "EnviarDesembolsos";
+}
+
+
+<style>
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+        table tbody tr td {
+            font-size: 9px;
+        }
+
+        table thead tr th {
+            font-size: 8px;
+        }
+</style>
+
+
+<script type="text/javascript">
+
+    function FunEnviarDesembolsos() {
+
+        var vNombreTxt = $('#nombreArchivo').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Desembolsos/EnviarMailsDesembolsos",
+            contentType: false,
+            processData: false,
+            success: function (jres) {
+
+                console.log(jres);
+
+                if (jres == "OK") {
+                    ///-------------------
+                    Swal.fire('Mail Enviados!', 'los mails se enviaron correctamente', 'success')
+                    //window.location.href = "http://172.17.1.38:8074/Refinanciados/Lista";
+
+                    //--------------------
+                } else {
+                    Swal.fire('ATENCION', 'Fallaron algunos envios, revisa la data', 'warning')
+                }
+
+            },
+
+        });
+    }
+</script>
+
+
+<div class="page-header">
+    <h3 class="page-title"> Envio de Mails </h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Envios</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Envio de Mails Desembolsos de Convenios</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="card-title">¡ ATENCION ! </h4>
+                    <p class="card-description">
+                        <h2 style="color:red">
+                            Antes de enviar los emails de DESEMBOLSOS DE CONVENIOS revisa la informacion en la tabla de abajo.
+                        </h2>
+                    </p>
+
+                    <div class="template-demo mt-2">
+
+                        <button type="button" onclick="FunEnviarDesembolsos()" class="btn btn-outline-success btn-icon-text btn-lg">
+                            <i class="mdi mdi-alert btn-icon-prepend"></i> Enviar Emails !
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Informacion de Desembolsos Convenios a Enviar</h4>
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NRO_EXPEDIENTE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CLIENTE_DOI)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.APE_PATERNO)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.APE_MATERNO)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NOMBRES)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CONVENIO)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PRESTAMO)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CODIGO_OFICINA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NOMBRE_OFICINA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CORREO_GERENTE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CORREO_SUBGERENTE)
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int count = 1; }
+
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@count</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NRO_EXPEDIENTE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CLIENTE_DOI)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.APE_PATERNO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.APE_MATERNO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NOMBRES)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CONVENIO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PRESTAMO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CODIGO_OFICINA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NOMBRE_OFICINA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CORREO_GERENTE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CORREO_SUBGERENTE)
+                            </td>
+
+                        </tr>
+                            count = count + 1;
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

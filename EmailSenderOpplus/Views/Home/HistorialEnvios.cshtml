@@ -1,0 +1,147 @@
+﻿@model IEnumerable<EmailSenderOpplus.Models.Entities.CITAS_MAIL_HISTORIAL>
+
+@{
+    ViewData["Title"] = "HistorialEnvios";
+}
+
+<div class="page-header">
+    <h3 class="page-title"> Historial de Emails enviados </h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Envios</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Historial de Emails enviados</li>
+        </ol>
+    </nav>
+</div>
+
+<form asp-action="HistorialEnvios" method="post">
+    
+    <div class="row">
+
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Buscar Envios por Fecha de Envio</h4>
+                    
+                    @{
+
+                        string fecha_ingreso = ViewBag.fecha_hoy;
+
+                        if (fecha_ingreso.Equals("0001-01-01"))
+                        {
+                            fecha_ingreso = DateTime.Today.ToString("yyyy-MM-dd");
+                        }
+                    }
+                    @*<form class="forms-sample">*@
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">Fecha</label>
+                            <input type="date" class="form-control"
+                                   name="fecEnvio" value="@fecha_ingreso">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mr-2">Buscar</button>
+
+                    @*</form>*@
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Informacion de Citas Enviadas</h4>
+
+                    <table class="table table-striped">
+
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.estado)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.fecha_hora_cita_envio)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DNI)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.nombres)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.fecha_cita)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.hora_cita)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.banco)
+                                </th>
+
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                            @{ int contador = 1; }
+                            @foreach (var item in Model)
+                            {
+                             <tr>
+
+                                <td>@contador</td>
+
+                                @if (item.estado == "ENVIADA")
+                                {
+                                    <td>
+                                        <label class="badge badge-success">@Html.DisplayFor(modelItem => item.estado)</label>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <label class="badge badge-danger">@Html.DisplayFor(modelItem => item.estado)</label>
+                                    </td>
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.fecha_hora_cita_envio)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DNI)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nombres)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.fecha_cita)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.hora_cita)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.banco)
+                                </td>
+
+
+                            </tr>
+
+                             contador = contador + 1;
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    </form>
+
+
+

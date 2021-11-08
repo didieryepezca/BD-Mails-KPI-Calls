@@ -1,0 +1,339 @@
+﻿@model IEnumerable<EmailSenderOpplus.Models.Entities.TB_ATTO_KPI_DIARIO>
+
+@{
+    ViewData["Title"] = "VerKPIS";
+}
+
+
+
+<style>
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+        table tbody tr td {
+            font-size: 9px;
+        }
+
+        table thead tr th {
+            font-size: 8px;
+        }
+</style>
+
+<div class="page-header">
+    <h3 class="page-title"> Ver KPIs Diarios y Mensuales </h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Atento" asp-action="Control1">Procesar informacion</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Ver KPIs Diarios y Mensuales </li>
+        </ol>
+    </nav>
+</div>
+
+
+<div class="row">
+
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">KPIs Diario</h4>
+
+                <a class="btn btn-outline-danger btn-lg btn-block"
+                   asp-controller="Atento" asp-action="ExportKpiDiario">
+                    Descargar KPIs Diario<i class="mdi mdi-menu float-right"></i>
+                </a>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MES)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ANIO)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TMO_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TMO_CE_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TMO_CNE_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TMO_NC_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CE_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CNE_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NC_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TOTAL_MARCACIONES_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CONTACTABILIDAD_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EFECTIVIDAD_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BASE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.INTENSIDAD_BASE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Z_DURACION_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Z_DURACION_HORAS_DIA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PRODUCTIVIDAD_DIA)
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int contador = 1; }
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @contador
+                            </td>
+                            <td>
+                                <strong>@Html.DisplayFor(modelItem => item.DIA)</strong>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MES)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ANIO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TMO_DIA)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TMO_CE_DIA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TMO_CNE_DIA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TMO_NC_DIA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CE_DIA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CNE_DIA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NC_DIA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TOTAL_MARCACIONES_DIA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CONTACTABILIDAD_DIA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EFECTIVIDAD_DIA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BASE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.INTENSIDAD_BASE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Z_DURACION_DIA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Z_DURACION_HORAS_DIA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PRODUCTIVIDAD_DIA)
+                            </td>
+
+                        </tr>
+
+                            contador = contador + 1;
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">KPIs Mensual</h4>
+
+                <a class="btn btn-outline-danger btn-lg btn-block"
+                   asp-controller="Atento" asp-action="ExportKpiMensual">
+                    Descargar KPIs Mensual<i class="mdi mdi-menu float-right"></i>
+                </a>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                MES
+                            </th>
+                            <th>
+                                AÑO
+                            </th>
+                            <th>
+                                TMO x MES
+                            </th>
+                            <th>
+                                TMO CE x MES
+                            </th>
+                            <th>
+                                TMO CNE x MES
+                            </th>
+                            <th>
+                                TMO NC x MES
+                            </th>
+                            <th>
+                                CE x MES
+                            </th>
+                            <th>
+                                CNE x MES
+                            </th>
+                            <th>
+                                NC x MES
+                            </th>
+                            <th>
+                                TOTAL MARCACIONES
+                            </th>
+                            <th>
+                                CONTACTABILIDAD
+                            </th>
+                            <th>
+                                EFECTIVIDAD
+                            </th>
+                            <th>
+                                BASE MENSUAL
+                            </th>
+                            <th>
+                                INTENSIDAD BASE MES
+                            </th>
+                            <th>
+                                Z DURACION
+                            </th>
+                            <th>
+                                Z DURACION HRS
+                            </th>
+                            <th>
+                                PRODUCTIVIDAD
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int contador2 = 1; }
+                        @foreach (var item in ViewBag.kpisMensualList)
+                        {
+                        <tr>
+                            <td>
+                                @contador2
+                            </td>
+                            <td>
+                                <strong>@item.MES</strong>
+                            </td>
+                            <td>
+                                <strong>@item.ANIO</strong>
+                            </td>
+                            <td>
+                                @item.TMO_MES
+                            </td>
+                            <td>
+                                @item.TMO_CE_MES
+                            </td>
+                            <td>
+                                @item.TMO_CNE_MES
+                            </td>
+                            <td>
+                                @item.TMO_NC_MES
+                            </td>
+                            <td>
+                                @item.CE
+                            </td>
+                            <td>
+                                @item.CNE
+                            </td>
+                            <td>
+                                @item.NC
+                            </td>
+                            <td>
+                                @item.TOTAL_MARCACIONES
+                            </td>
+                            <td>
+                                @item.CONTACTABILIDAD
+                            </td>
+                            <td>
+                                @item.EFECTIVIDAD
+                            </td>
+                            <td>
+                                @item.BASE_MENSUAL
+                            </td>
+                            <td>
+                                @item.INTENSIDAD_BASE_MENSUAL
+                            </td>
+                            <td>
+                                @item.Z_DURACION
+                            </td>
+                            <td>
+                                @item.Z_DURACION_HORAS
+                            </td>
+                            <td>
+                                @item.PRODUCTIVIDAD
+                            </td>
+
+                        </tr>
+
+                            contador2 = contador2 + 1;
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+

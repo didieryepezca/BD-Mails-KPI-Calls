@@ -1,0 +1,217 @@
+﻿@model IEnumerable<EmailSenderOpplus.Models.Entities.TB_CITAS>
+
+@{
+    ViewData["Title"] = "EnviarMails";
+}
+
+
+<style>
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+        table tbody tr td {
+            font-size: 9px;
+        }
+
+        table thead tr th {
+            font-size: 8px;
+        }
+</style>
+
+
+<script type="text/javascript">
+
+    function FunEnviarCitas() {
+
+        var vNombreTxt = $('#nombreArchivo').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/EnviarCitas",
+            contentType: false,
+            processData: false,
+            success: function (jres) {
+
+                console.log(jres);
+
+                if (jres == "OK") {
+                    ///-------------------
+                    Swal.fire('Mail Enviados!', 'los mails se enviaron correctamente', 'success')
+                    //window.location.href = "http://172.17.1.38:8074/Refinanciados/Lista";
+
+                    //--------------------
+                } else {
+                    Swal.fire('ATENCION', 'Faltaron algunos adjuntos, revisa el historial', 'warning')
+                }
+
+            },
+
+        });
+    }
+</script>
+
+
+
+<div class="page-header">
+    <h3 class="page-title"> Envio de Mails </h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Envios</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Envio de Mails</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="card-title">¡ ATENCION ! </h4>
+                    <p class="card-description" >
+                        <h2 style="color:red"> Antes de enviar los emails revisa la informacion en la tabla de abajo</h2>
+                    </p>
+
+                    <div class="template-demo mt-2">
+
+                        <button type="button" onclick="FunEnviarCitas()" class="btn btn-outline-success btn-icon-text btn-lg">
+                            <i class="mdi mdi-alert btn-icon-prepend"></i> Enviar Emails !
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Informacion de Citas a Enviar</h4>
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PERIODO)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FECHA_RECEPCION)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DNI)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NOMBRE_COMPLETO)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TIPO)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BANCO_ACREEDOR)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NUMERO_PRESTAMO)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MONEDA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MONTO_CANCELAR)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CELULAR)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FUVEX)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CONVENIO)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FECHA_CITA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.HORA_CITA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DIRECCION_BANCO)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int count = 1;  }
+                        @foreach (var item in Model)
+                        {                               
+                            <tr>
+                                <td>@count</td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PERIODO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FECHA_RECEPCION)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DNI)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NOMBRE_COMPLETO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TIPO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BANCO_ACREEDOR)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NUMERO_PRESTAMO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MONEDA)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MONTO_CANCELAR)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CELULAR)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FUVEX)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CONVENIO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FECHA_CITA)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HORA_CITA)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DIRECCION_BANCO)
+                                </td>
+
+                            </tr>
+
+                             count = count + 1;
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

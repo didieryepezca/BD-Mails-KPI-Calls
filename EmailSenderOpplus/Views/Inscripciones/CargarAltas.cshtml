@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "CargarAltas";
+}
+
+<script type="text/javascript">
+
+    function UploadFileCSV() {
+
+        var vNombreTxt = $('#nombreArchivo').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Inscripciones/CargarAltasCSV?vNombre=" + vNombreTxt,
+            contentType: false,
+            processData: false,
+            success: function (jres) {
+
+                console.log(jres);
+
+                if (jres == "OK") {
+                    ///-------------------
+                    Swal.fire('Cargado!', 'Se Cargo el Archivo correctamente', 'success')
+                    //window.location.href = "http://172.17.1.38:8074/Refinanciados/Lista";
+
+                    //--------------------
+                } else {
+                    Swal.fire('ERROR', 'No se pudo cargar, revisa el archivo', 'warning')
+                }
+
+            },
+
+        });
+    }
+</script>
+
+
+<div class="page-header">
+    <h3 class="page-title"> Cargar Data de Altas</h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Datos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Cargar Datos de Altas</li>
+        </ol>
+    </nav>
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Cargar archivo .CSV</h4>
+                <p class="card-description"> Escriba en la caja el nombre de su archivo correctamente</p>
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <label for="exampleInputUsername1">Archivo</label>
+                        <input type="text" class="form-control" id="nombreArchivo">
+                    </div>
+
+                    <a class="btn btn-primary mr-2" onclick="UploadFileCSV()">Cargar Base ! </a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

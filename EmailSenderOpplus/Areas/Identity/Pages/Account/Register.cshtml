@@ -1,0 +1,148 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>OPPLUS Mails y Tareas</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="~/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="~/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="~/images/favicon.png" />
+</head>
+<body>
+
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="content-wrapper d-flex align-items-center auth">
+                <div class="row flex-grow">
+                    <div class="col-lg-4 mx-auto">
+                        <div class="auth-form-light text-left p-5">
+                            <div class="brand-logo">
+                                <img src="~/images/OPPLUSlogogris.png">
+                            </div>
+                            <h4>No tienes Cuenta?</h4>
+                            <h6 class="font-weight-light">Ingresa correctamente tus datos</h6>
+                            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                <div class="form-group">
+                                    <input asp-for="Input.Codigo" type="text" style="text-transform:uppercase"
+                                           class="form-control form-control-lg" placeholder="Registro P: PXXXXXX" required>
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="Input.Nombre" type="text" style="text-transform:uppercase"
+                                           class="form-control form-control-lg" placeholder="Nombres" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input asp-for="Input.Apellido" type="text" style="text-transform:uppercase"
+                                           class="form-control form-control-lg" placeholder="Apellidos" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input asp-for="Input.Email" type="email" style="text-transform:uppercase"
+                                           class="form-control form-control-lg" placeholder="Correo Opplus" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input asp-for="Input.Password" type="password" placeholder="CONTRASEÑA" class="form-control" required />
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="Input.ConfirmPassword" type="password" placeholder="CONFIRMAR CONTRASEÑA" class="form-control" required />
+                                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+
+                                </div>
+
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                                        REGISTRAR
+                                    </button>
+                                </div>
+
+                                <div class="footer">
+                                    <div class="form-group">
+                                        <p style="text-align:center" class="text-danger lead">
+                                        <strong> @Html.ValidationMessage("RegisterMessage")</strong>
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                                <div class="text-center mt-4 font-weight-light">
+                                    Ya tienes una cuenta? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Iniciar Sesion</a>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="~/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="~/js/off-canvas.js"></script>
+    <script src="~/js/hoverable-collapse.js"></script>
+    <script src="~/js/misc.js"></script>
+    <!-- endinject -->
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>
+
+@*<div class="row">
+        <div class="col-md-4">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <h4>Create a new account.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }*@

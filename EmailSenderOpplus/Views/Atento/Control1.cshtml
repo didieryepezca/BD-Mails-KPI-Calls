@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewData["Title"] = "Control1";
+}
+
+<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script type="text/javascript">
+
+
+    var vResultado = '@ViewBag.resultado';
+
+
+
+    //var vCodigoC = 1992;
+
+    $(document).ready(function () {
+         $('#excelLoading').hide();
+     });
+
+    window.onload = load;
+
+    function load() {
+
+        if (vResultado == "OK") {
+
+            $('#loading').hide();
+
+            Swal.fire('COMPLETADO ! ', 'Se procesó tu consulta', 'success')
+            //MailConfirm();
+        } else if (vResultado == "INICIO") {
+            //Swal.fire('ATENCION', 'Por favor ingrese correctamente las fechas', 'warning')
+        }
+        else {
+            //alert("No se envio mail estimado");
+            Swal.fire('ERROR', 'Hubo un problema, contacte Administrador', 'error')
+
+            //console.log(vResultado);
+        }
+    }
+</script>
+
+<script type="text/javascript">
+
+    function mostrarCargando() {
+
+        $('#loading').show();
+    }
+
+    function loadingExcel() {
+
+        $('#excelLoading').show();
+    }
+
+
+
+</script>
+
+<div class="page-header">
+    <h3 class="page-title"> Control 1</h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Reportes</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Control 1</li>
+        </ol>
+    </nav>
+</div>
+
+
+
+<form id="myform" asp-action="Control1" method="post">
+
+    <div class="row">
+
+        <div class="col-md-8 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="card-title">Procesar Reporte Control 1</h4>
+                            <p class="card-description" style="color:red">Seleccione un Rango de tiempo para el reporte y haga click en Procesar</p>
+
+                            @{
+                                string fecha_hoy = ViewBag.fecha_hoy;
+
+                                if (fecha_hoy.Equals("0001-01-01"))
+                                {
+                                    fecha_hoy = DateTime.Today.ToString("yyyy-MM-dd");
+                                }
+                            }
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputUsername1">Fecha de Inicio</label>
+                                        <input type="date" class="form-control"
+                                               name="fecInicio" value="@fecha_hoy">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputUsername1">Fecha de Fin</label>
+                                        <input type="date" class="form-control"
+                                               name="fecFin" value="@fecha_hoy">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group" id="loading" style="display: none;">
+                                <img src="~/images/cargando.gif" width="70" height="50">
+                                <p style="color:red">Procesando...</p>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary mr-2" onclick="mostrarCargando()">PROCESAR !</button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Resultados</h4>
+                    <p class="card-description" style="color:red">Comprobar los Resultados</p>
+                    <div class="template-demo">
+                        <a class="btn btn-outline-success btn-lg btn-block"
+                           asp-controller="Atento" asp-action="ExportToExcel" onclick="loadingExcel();">
+                            Descargar Excel<i class="mdi mdi-menu float-right"></i>
+                        </a>
+
+                    </div>
+
+                    <div class="template-demo">
+
+                        <div class="form-group" id="excelLoading" style="display: none;">
+                            <img src="~/images/cargando.gif" width="70" height="50">
+                            <p style="color:red">Descargando Reporte...</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</form>

@@ -1,0 +1,305 @@
+﻿
+@{
+    ViewData["Title"] = "CargarBasesAtento";
+}
+
+<script type="text/javascript">
+
+    window.onload = load;
+
+    function load() {
+
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1; //months from 1-12
+        var day = dateObj.getUTCDate();
+        var year = dateObj.getUTCFullYear();
+
+
+        //console.log(month);
+        //console.log(day);
+        //console.log(year);
+
+        $('#selectMes').val(month);
+        $('#selectAnio').val(year);
+    }
+
+
+    function ConfirmCargaVolcado() {
+
+        var vVolcado = $('#nameVolcado').val();
+
+        var mes = $('#selectMes').val();
+        var anio = $('#selectAnio').val();
+
+        Swal.fire({
+            title: '¿Estas Seguro que Deseas Cargar:  ' + vVolcado + ' con Data del MES:  ' + mes + ' AÑO:  ' + anio + '?',
+                  showDenyButton: true,
+                  showCancelButton: true,
+                  confirmButtonText: `Si`,
+                  denyButtonText: `Don't save`,
+                }).then((result) => {
+                  /* Read more about isConfirmed, isDenied below */
+                  if (result.isConfirmed) {
+                      Swal.fire('Cargaremos tu archivo...', '', 'success')
+
+                      UploadVolcado(mes, anio)
+                      
+
+                  } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info')
+                  }
+                })
+        
+
+    }
+
+
+    function UploadVolcado(vMes, vAnio) {
+
+        //console.log(vMes);
+        //console.log(vAnio);
+
+        var vVolcado = $('#nameVolcado').val();
+
+        $('#loadVolcado').show();
+
+        $.ajax({
+            type: "POST",
+            url: "/Atento/CargarVolcadoCSV?vNombre=" + vVolcado + "&vMes=" + vMes + "&vAnio=" + vAnio,
+            contentType: false,
+            processData: false,
+            success: function (jres) {
+
+                console.log(jres);
+
+                if (jres == "OK") {
+
+                    $('#loadVolcado').hide();
+                    ///-------------------
+                    Swal.fire('Cargado!', 'Se Cargo el Archivo correctamente', 'success')
+                    //window.location.href = "http://172.17.1.38:8074/Refinanciados/Lista";
+
+                    //--------------------
+                } else {
+
+                    $('#loadVolcado').hide();
+                    Swal.fire('ERROR', 'No se pudo cargar, revisa el archivo', 'warning')
+                }
+
+            },
+
+        });
+    }
+
+    function UploadProgreso() {
+
+        var vProgreso = $('#nameProgreso').val();
+
+         $('#loadProgreso').show();
+
+        $.ajax({
+            type: "POST",
+            url: "/Atento/CargarProgresoCSV?vNombre=" + vProgreso,
+            contentType: false,
+            processData: false,
+            success: function (jres) {
+
+                console.log(jres);
+
+                if (jres == "OK") {
+                    ///-------------------
+
+                    $('#loadProgreso').hide();
+                    Swal.fire('Cargado!', 'Se Cargo el Archivo correctamente', 'success')
+                    //window.location.href = "http://172.17.1.38:8074/Refinanciados/Lista";
+
+                    //--------------------
+                } else {
+
+                    $('#loadProgreso').hide();
+                    Swal.fire('ERROR', 'No se pudo cargar, revisa el archivo', 'warning')
+                }
+
+            },
+
+        });
+    }
+
+
+    function UploadAsesores() {
+
+        var vAsesores = $('#nameAsesores').val();
+
+         $('#loadAsesores').show();
+
+        $.ajax({
+            type: "POST",
+            url: "/Atento/CargarAsesoresCSV?vNombre=" + vAsesores,
+            contentType: false,
+            processData: false,
+            success: function (jres) {
+
+                console.log(jres);
+
+                if (jres == "OK") {
+                    ///-------------------
+                    Swal.fire('Cargado!', 'Se Cargo el Archivo correctamente', 'success')
+                    //window.location.href = "http://172.17.1.38:8074/Refinanciados/Lista";
+                    $('#loadAsesores').hide();
+                    //--------------------
+                } else {
+                    $('#loadAsesores').hide();
+                    Swal.fire('ERROR', 'No se pudo cargar, revisa el archivo', 'warning')
+                }
+
+            },
+
+        });
+    }
+
+
+
+</script>
+
+
+<div class="page-header">
+    <h3 class="page-title"> Cargar Bases ATENTO</h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Datos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Cargar Bases ATENTO</li>
+        </ol>
+    </nav>
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Cargar Volcado</h4>
+                <p class="card-description" style="color:red"> Escriba en la caja el nombre de su archivo de VOLCADO correctamente e indique de que MES y AÑO contiene la data</p>
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <label for="exampleInputUsername1">Nombre del Archivo sin Extension</label>
+                        <input type="text" class="form-control" id="nameVolcado">
+                    </div>                   
+
+                    <div class="form-group row">                   
+                        <div class="col-sm-6">
+                            <label for="selectMes">Mes</label>
+                            <select class="form-control" id="selectMes">
+                                <option value="" selected>Seleccione</option>
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Setiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="selectAnio">Año</label>
+                            <select class="form-control" id="selectAnio">
+                                <option value="" selected>Seleccione</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" id="loadVolcado" style="display: none;">
+                        <img src="~/images/cargando.gif" width="70" height="50">
+                        <p style="color:red">Cargando Volcado...</p>
+                    </div>
+
+                    <a class="btn btn-success mr-2" onclick="ConfirmCargaVolcado()">Cargar VOLCADO </a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Cargar Progreso</h4>
+                <p class="card-description" style="color:red"> Escriba en la caja el nombre de su archivo de PROGRESO correctamente</p>
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <label for="exampleInputUsername1">Nombre del Archivo sin Extension</label>
+                        <input type="text" class="form-control" id="nameProgreso">
+                    </div>
+                    <div class="form-group" id="loadProgreso" style="display: none;">
+                        <img src="~/images/cargando.gif" width="70" height="50">
+                        <p style="color:red">Cargando Progreso...</p>
+                    </div>
+                    <a class="btn btn-primary mr-2" onclick="UploadProgreso()">Cargar PROGRESO </a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Cargar Asesores</h4>
+                <p class="card-description" style="color:red"> Escriba en la caja el nombre de su archivo de ASESORES correctamente</p>
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <label for="exampleInputUsername1">Nombre del Archivo sin Extension</label>
+                        <input type="text" class="form-control" id="nameAsesores">
+                    </div>
+                    <div class="form-group" id="loadAsesores" style="display: none;">
+                        <img src="~/images/cargando.gif" width="70" height="50">
+                        <p style="color:red">Cargando Asesores...</p>
+                    </div>
+                    <a class="btn btn-primary mr-2" onclick="UploadAsesores()">Cargar ASESORES </a>
+
+                    <a class="btn btn-inverse-info mr-2" style="float:right"
+                       asp-controller="Atento" asp-action="VerAsesores"> Ver Asesores</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Historial de Cargas</h4>
+                <p class="card-description" style="color:red">Haga click debajo para revisar el historial de cargas de los archivos cargados</p>
+                <form class="forms-sample">
+
+                    <a class="btn btn-info btn-rounded btn-fw"
+                       asp-controller="Atento" asp-action="HistorialCargasAtento">Comprobar Cargas</a>                  
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
